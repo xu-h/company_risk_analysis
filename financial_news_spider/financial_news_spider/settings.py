@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for data_process project
+# Scrapy settings for financial_news_spider project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'data_process'
+BOT_NAME = 'financial_news_spider'
 
-SPIDER_MODULES = ['data_process.spiders']
-NEWSPIDER_MODULE = 'data_process.spiders'
+SPIDER_MODULES = ['financial_news_spider.spiders']
+NEWSPIDER_MODULE = 'financial_news_spider.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'data_process (+http://www.yourdomain.com)'
+#USER_AGENT = 'financial_news_spider (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -47,13 +47,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'data_process.middlewares.DataProcessSpiderMiddleware': 543,
+#    'financial_news_spider.middlewares.FinancialNewsSpiderSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'data_process.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'financial_news_spider.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'data_process.pipelines.DataProcessPipeline': 300,
+#    'financial_news_spider.pipelines.FinancialNewsSpiderPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)

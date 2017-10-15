@@ -8,7 +8,7 @@
 import scrapy
 
 
-class DataProcessItem(scrapy.Item):
+class FinancialNewsSpiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
