@@ -8,7 +8,15 @@
 import scrapy
 
 
-class FinancialNewsSpiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class NewsItem(scrapy.Item):
+    title = scrapy.Field()
+    time = scrapy.Field()
+    url = scrapy.Field()
+    content = scrapy.Field()
+    type = scrapy.Field()
+    company = scrapy.Field()
+
+
+class CompanyItem(scrapy.Item):
+    company = scrapy.Field()
+    industry = scrapy.Field()
