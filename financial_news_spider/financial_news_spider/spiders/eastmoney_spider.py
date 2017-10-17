@@ -55,7 +55,7 @@ class EastmoneySpider(scrapy.Spider):
         # 删除无用元素
         content = re.sub(r'<table.*?">.*?</table>', '', content)
         content = re.sub(r'<iframe.*?">.*?</iframe>', '', content)
-        content = re.sub(r'<img.+>', '', content)
+        # content = re.sub(r'<img.+>', '', content)
         # 删除责编 TODO 并不能删除该标签
         content = re.sub('<p class="res-edit">.+?</p>', '', content)
 
@@ -71,5 +71,5 @@ class EastmoneySpider(scrapy.Spider):
         # 删除前导空格
         if content[0] == ' ':
             content = content[1:]
-        item['content'] = Selector(text=content).css('#ContentBody::text').extract_first()
+        item['content'] = content
         yield item
