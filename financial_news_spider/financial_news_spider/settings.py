@@ -64,7 +64,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 ITEM_PIPELINES = {
-   'financial_news_spider.pipelines.MongoPipeline': 300,
+    # 'financial_news_spider.pipelines.HtmlCleanPipeline': 200,
+    'financial_news_spider.pipelines.MongoPipeline': 300,
+    'financial_news_spider.pipelines.TxtPipeline': 400
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,3 +92,5 @@ ITEM_PIPELINES = {
 
 MONGO_URI = "mongodb://localhost"
 MONGO_DATABASE = "company_risk_data"
+
+TXT_FILENAME = "test.txt"

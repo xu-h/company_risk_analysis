@@ -1,43 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
-import re
-
 import pymongo
-from scrapy.exceptions import DropItem
-
-
-class HtmlCleanPipelin(object):
-
-    def process_item(self, item, spider):
-        content = item['content']
-        # 删除无用元素
-        content = re.sub(r'<table.*?">.*?</table>', '', content)
-        content = re.sub(r'<iframe.*?">.*?</iframe>', '', content)
-        # content = re.sub(r'<img.+?>', '', content)
-
-        # 删除div标签
-        # result = re.subn(r'<div.+?>(.+)</div>', '\g<1>', content)
-        # while result[1] > 0:
-        #     content = result[0]
-        #     result = re.subn(r'<div.+?>(.+)</div>', '\g<1>', content)
-        # 删除责编 TODO 并不能删除该标签
-        # content = re.sub('<p class="res-edit">.+?</p>', '', content)
-
-        # 删除超链接
-        # content = re.sub(r'<a.+?>(.+?)</a>', '\g<1>', content)
-        # 删除span标签
-        # content = re.sub(r'<span.+?>(.*?)</span>', '\g<1>', content)
-        # 删除p标签
-        # content = re.sub(r'<p.*?>', '', content)
-        # content = re.sub(r'</p>', '\n', content)
-        # 删除注释，换行，空格
-        # content = re.sub(r'(<!--.*?-->|[ \r\n]|<br>|\u2003|\u3000)+', ' ', content)
-        # 删除前导空格
-        if content[0] == ' ':
-            content = content[1:]
-        # item['content'] = Selector(text=content).css('#ContentBody::text').extract_first()
-        item['content'] = content
-        return item
+from bs4 import BeautifulSoup
 
 
 class JsonWriterPipeline(object):
@@ -83,4 +47,39 @@ class MongoPipeline(object):
 
     def process_item(self, item, spider):
         self.db[self.collection_name].insert_one(dict(item))
+        return item
+
+
+class TxtPipeline(object):
+
+    def __init__(self, filename):
+        self.filename = filename
+        self.file = None
+        self.cnt = 0
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            filename=crawler.settings.get('TXT_FILENAME')
+        )
+
+    def open_spider(self, spider):
+        self.file = open(self.filename, 'w', encoding='UTF-8')
+        self.file.close()
+
+    def close_spider(self, spider):
+        # self.file.close()
+        pass
+
+    def process_item(self, item, spider):
+        self.file = open(self.filename, 'a', encoding='UTF-8')
+        self.file.write('##########\n')
+        self.file.write(str(self.cnt) + '\n')
+        self.file.write(item['title'] + '\n')
+        self.file.write(item['company'] + '\n')
+        self.file.write(item['time'] + '\n')
+        self.file.write(item['url'] + '\n')
+        self.file.write(item['content'] + '\n')
+        self.file.close()
+        self.cnt += 1
         return item
